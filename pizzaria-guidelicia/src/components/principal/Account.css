@@ -1,0 +1,112 @@
+/* Container principal */
+.account-container {
+  position: relative;
+}
+
+/* Container para o header e botão */
+.account-header-container {
+  position: relative; /* Para permitir o posicionamento do botão sobre o header */
+}
+
+/* Estilo do header */
+.account-header {
+  width: 100%;
+  background-color: #d4ff89; /* Verde-claro */
+  padding: 50px;
+  text-align: left;
+  font-size: 25px;
+  font-weight: bold;
+  color: black;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  flex-direction: column;
+}
+
+.account-header img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.account-header button {
+  margin-top: 20px;
+  padding: 10px 20px;
+}
+
+/* Botão de mostrar ações */
+.show-actions-btn {
+  background-color: transparent;
+  border: 2px solid #007bff;
+  color: #007bff;
+  font-size: 30px;
+  font-weight: bold;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute; /* Fixa o botão sobre o header */
+  top: 20px;
+  right: 20px;
+  transition: transform 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Efeito de hover para o botão */
+.show-actions-btn:hover {
+  transform: scale(1.2);
+  color: #fff;
+  background-color: #007bff;
+  border-color: #0056b3;
+}
+
+/* Ações */
+.action-buttons-container {
+  display: none;
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  width: 200px;
+  background-color: #e0e0e0;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.action-buttons-container.show {
+  display: block;
+}
+
+.action-buttons-container h3 {
+  text-align: center;
+  font-size: 18px;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.action-buttons-container button {
+  display: block;
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.action-buttons-container .delete-account-button {
+  background-color: #ff4d4d;
+}
+
+.action-buttons-container .edit-account-button {
+  background-color: #32cd32;
+}
+
+.action-buttons-container button:hover {
+  opacity: 0.9;
+}

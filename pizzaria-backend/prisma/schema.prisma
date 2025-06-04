@@ -1,0 +1,36 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  email     String   @unique
+  senha     String
+  telefone  String
+  endereco  String
+  createdAt DateTime @default(now())
+  pedidos  Pedido[] // <- lado reverso da relação
+
+}
+
+model Pedido {
+  id        Int      @id @default(autoincrement())
+  data      DateTime @default(now())
+  itens     String   // <- agora é um campo de texto (ex: "Pizza, Refrigerante")
+  usuario   User     @relation(fields: [usuarioId], references: [id])
+  usuarioId Int
+}
+
+model Produto {
+  id        Int     @id @default(autoincrement())
+  nome      String
+  preco     Float
+  imagem    String
+  descricao String
+}
