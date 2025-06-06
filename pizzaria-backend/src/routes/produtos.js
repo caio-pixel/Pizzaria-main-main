@@ -1,39 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const produtosController = require("../controllers/produtosController");
 
-// GET - Listar produtos
-router.get("/", async (req, res) => {
-  const produtos = await prisma.produto.findMany();
-  res.json(produtos);
-});
+// GET todos produtos (público, mas aqui protegido pelo middleware do app.js)
+router.get("/", produtosController.listarProdutos);
 
-// POST - Criar produto
-router.post("/", async (req, res) => {
-  const { nome, preco, imagem, descricao } = req.body;
-  const novoProduto = await prisma.produto.create({
-    data: { nome, preco: parseFloat(preco), imagem, descricao },
-  });
-  res.json(novoProduto);
-});
+// POST adicionar produto (somente admin logado)
+router.post("/", produtosController.adicionarProduto);
 
-// PUT - Editar produto
-router.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const { nome, preco, imagem, descricao } = req.body;
-  const produtoAtualizado = await prisma.produto.update({
-    where: { id: Number(id) },
-    data: { nome, preco: parseFloat(preco), imagem, descricao },
-  });
-  res.json(produtoAtualizado);
-});
-
-// DELETE - Deletar produto
-router.delete("/:id", async (req, res) => {
-  const { id } = req.params;
-  await prisma.produto.delete({ where: { id: Number(id) } });
-  res.json({ mensagem: "Produto deletado com sucesso" });
-});
+// DELETE produto por id
+router.delete("/:id", produtosController.deletarProduto);
 
 module.exports = router;

@@ -5,14 +5,16 @@ import "./style.css";
 const Produto = ({ nome, preco, imagem, descricao, onComprar }) => (
   <div className="produto">
     <img src={imagem} alt={nome} />
+
     <div className="descricao-e-preco">
       <h2>{nome}</h2>
       {descricao && <p>{descricao}</p>}
       <p className="preco">{preco}</p>
-      <button className="btn-comprar" onClick={onComprar}>
-        Comprar
-      </button>
     </div>
+
+    <button className="btn-comprar" onClick={onComprar}>
+      Comprar
+    </button>
   </div>
 );
 
@@ -44,6 +46,12 @@ const Produtos = () => {
     }
     navigate("/finalizar", { state: { carrinho } });
   };
+
+  const abrirAdmin = () => {
+    // redireciona para página do admin
+    navigate("/admin");
+  };
+
 
   const precoParaNumero = (precoStr) =>
     parseFloat(precoStr.replace("R$", "").replace(",", ".").trim()) || 0;
@@ -202,75 +210,233 @@ const Produtos = () => {
         </p>
 
         <div className="botoes-categorias">
-        <button
-  onClick={() => {
-    setMostrarSalgadas(!mostrarSalgadas);
-    setMostrarDoces(false);
-    setMostrarBebidas(false);
-  }}
->
-  {mostrarSalgadas ? "Ocultar" : "Mostrar"} Pizzas Salgadas
-</button>
+          <button
+            onClick={() => {
+              setMostrarSalgadas(!mostrarSalgadas);
+              setMostrarDoces(false);
+              setMostrarBebidas(false);
+            }}
+          >
+            {mostrarSalgadas ? "Ocultar" : "Mostrar"} Pizzas Salgadas
+          </button>
 
-<button
-  onClick={() => {
-    setMostrarDoces(!mostrarDoces);
-    setMostrarSalgadas(false);
-    setMostrarBebidas(false);
-  }}
->
-  {mostrarDoces ? "Ocultar" : "Mostrar"} Pizzas Doces
-</button>
+          <button
+            onClick={() => {
+              setMostrarDoces(!mostrarDoces);
+              setMostrarSalgadas(false);
+              setMostrarBebidas(false);
+            }}
+          >
+            {mostrarDoces ? "Ocultar" : "Mostrar"} Pizzas Doces
+          </button>
 
-<button
-  onClick={() => {
-    setMostrarBebidas(!mostrarBebidas);
-    setMostrarSalgadas(false);
-    setMostrarDoces(false);
-  }}
->
-  {mostrarBebidas ? "Ocultar" : "Mostrar"} Bebidas
-</button>
-
+          <button
+            onClick={() => {
+              setMostrarBebidas(!mostrarBebidas);
+              setMostrarSalgadas(false);
+              setMostrarDoces(false);
+            }}
+          >
+            {mostrarBebidas ? "Ocultar" : "Mostrar"} Bebidas
+          </button>
         </div>
 
         <div className="produtos-grid">
           {mostrarSalgadas && (
             <>
-              <Produto nome="Pizza de Portuguesa" preco="R$45,00" imagem="/assets/pizza_portuguesa.png" descricao="Clássica e saborosa, com molho, mussarela, presunto, ovos, cebola, azeitonas e ervilhas." onComprar={() => adicionarAoCarrinho({ nome: "Pizza de Portuguesa", preco: "R$45,00" })} />
-              <Produto nome="6 queijos" preco="R$52,00" imagem="/assets/pizza6queijos.png" descricao="Uma explosão cremosa de sabor com mussarela, provolone, gorgonzola, parmesão, catupiry e queijo prato." onComprar={() => adicionarAoCarrinho({ nome: "Pizza de 6 queijos", preco: "R$52,00" })} />
-              <Produto nome="Pizza de Bauru" preco="R$43,00" imagem="/assets/pizza_bauru.png" descricao="Deliciosa combinação de queijo, presunto, tomate e orégano, inspirada no tradicional sanduíche paulista." onComprar={() => adicionarAoCarrinho({ nome: "Pizza de Bauru", preco: "R$43,00" })} />
-              <Produto nome="Pizza de Brócolis" preco="R$40,00" imagem="/assets/pizza_brocolis.png" descricao="Leve e nutritiva, com brócolis frescos, molho branco e queijo mussarela." onComprar={() => adicionarAoCarrinho({ nome: "Pizza de Brócolis", preco: "R$40,00" })} />
-              <Produto nome="Pizza de Frango com catupiry" preco="R$47,00" imagem="/assets/pizza_frango.png" descricao="Recheio cremoso de frango desfiado com catupiry, um verdadeiro clássico da pizza brasileira." onComprar={() => adicionarAoCarrinho({ nome: "Pizza de Frango com catupiry", preco: "R$47,00" })} />
-              <Produto nome="Pizza de Marguerita" preco="R$42,00" imagem="/assets/pizzamarguerita.png" descricao="Simples e irresistível, com molho de tomate, mussarela, manjericão fresco e um toque de azeite." onComprar={() => adicionarAoCarrinho({ nome: "Pizza de Marguerita", preco: "R$42,00" })} />
-              <Produto nome="Pizza de Pepperoni" preco="R$47,00" imagem="/assets/pizzapepperoni.png" descricao="Picante e crocante, com fatias generosas de pepperoni e queijo mussarela derretido." onComprar={() => adicionarAoCarrinho({ nome: "Pizza de Pepperoni", preco: "R$47,00" })} />
-              <Produto nome="Pizza de Frango com Bacon" preco="R$49,00" imagem="/assets/pizza_strogonoff.png" descricao="Sabor intenso do frango combinado com bacon crocante, cobertos com muito queijo." onComprar={() => adicionarAoCarrinho({ nome: "Pizza de Frango com Bacon", preco: "R$49,00" })} />
-              <Produto nome="Pizza de Calabresa" preco="R$43,00" imagem="/assets/pizzacalabresaoficial.png" descricao="Tradicional e muito saborosa, com fatias de calabresa, cebola e queijo mussarela." onComprar={() => adicionarAoCarrinho({ nome: "Pizza de Calabresa", preco: "R$43,00" })} />
+              <Produto
+                nome="Pizza de Portuguesa"
+                preco="R$45,00"
+                imagem="/assets/pizza_portuguesa.png"
+                descricao="Clássica e saborosa, com molho, mussarela, presunto, ovos, cebola, azeitonas e ervilhas."
+                onComprar={() =>
+                  adicionarAoCarrinho({ nome: "Pizza de Portuguesa", preco: "R$45,00" })
+                }
+              />
+              <Produto
+                nome="6 queijos"
+                preco="R$52,00"
+                imagem="/assets/pizza6queijos.png"
+                descricao="Uma explosão cremosa de sabor com mussarela, provolone, gorgonzola, parmesão, catupiry e queijo prato."
+                onComprar={() =>
+                  adicionarAoCarrinho({ nome: "Pizza de 6 queijos", preco: "R$52,00" })
+                }
+              />
+              <Produto
+                nome="Pizza de Bauru"
+                preco="R$43,00"
+                imagem="/assets/pizza_bauru.png"
+                descricao="Deliciosa combinação de queijo, presunto, tomate e orégano, inspirada no tradicional sanduíche paulista."
+                onComprar={() =>
+                  adicionarAoCarrinho({ nome: "Pizza de Bauru", preco: "R$43,00" })
+                }
+              />
+              <Produto
+                nome="Pizza de Brócolis"
+                preco="R$40,00"
+                imagem="/assets/pizza_brocolis.png"
+                descricao="Leve e nutritiva, com brócolis frescos, molho branco e queijo mussarela."
+                onComprar={() =>
+                  adicionarAoCarrinho({ nome: "Pizza de Brócolis", preco: "R$40,00" })
+                }
+              />
+              <Produto
+                nome="Pizza de Frango com catupiry"
+                preco="R$47,00"
+                imagem="/assets/pizza_frango.png"
+                descricao="Recheio cremoso de frango desfiado com catupiry, um verdadeiro clássico da pizza brasileira."
+                onComprar={() =>
+                  adicionarAoCarrinho({ nome: "Pizza de Frango com catupiry", preco: "R$47,00" })
+                }
+              />
+              <Produto
+                nome="Pizza de Marguerita"
+                preco="R$42,00"
+                imagem="/assets/pizzamarguerita.png"
+                descricao="Simples e irresistível, com molho de tomate, mussarela, manjericão fresco e um toque de azeite."
+                onComprar={() =>
+                  adicionarAoCarrinho({ nome: "Pizza de Marguerita", preco: "R$42,00" })
+                }
+              />
+              <Produto
+                nome="Pizza de Pepperoni"
+                preco="R$47,00"
+                imagem="/assets/pizzapepperoni.png"
+                descricao="Picante e crocante, com fatias generosas de pepperoni e queijo mussarela derretido."
+                onComprar={() =>
+                  adicionarAoCarrinho({ nome: "Pizza de Pepperoni", preco: "R$47,00" })
+                }
+              />
+              <Produto
+                nome="Pizza de Frango com Bacon"
+                preco="R$49,00"
+                imagem="/assets/pizza_strogonoff.png"
+                descricao="Sabor intenso do frango combinado com bacon crocante, cobertos com muito queijo."
+                onComprar={() =>
+                  adicionarAoCarrinho({ nome: "Pizza de Frango com Bacon", preco: "R$49,00" })
+                }
+              />
+              <Produto
+                nome="Pizza de Calabresa"
+                preco="R$43,00"
+                imagem="/assets/pizzacalabresaoficial.png"
+                descricao="Tradicional e muito saborosa, com fatias de calabresa, cebola e queijo mussarela."
+                onComprar={() =>
+                  adicionarAoCarrinho({ nome: "Pizza de Calabresa", preco: "R$43,00" })
+                }
+              />
             </>
           )}
 
           {mostrarDoces && (
             <>
-              <Produto nome="Pizza de Prestígio" preco="R$48,00" imagem="/assets/pizzaprestigiooficial.png" descricao="Massa macia coberta com creme de chocolate ao leite e generosa camada de coco ralado, uma combinação clássica que conquista paladares." onComprar={() => adicionarAoCarrinho({ nome: "Pizza de Prestígio", preco: "R$48,00" })} />
-              <Produto nome="Pizza de Brigadeiro" preco="R$45,00" imagem="/assets/pizzabrigadeiro.png" descricao="Deliciosa massa recheada com brigadeiro cremoso e finalizada com granulados de chocolate, um doce irresistível para os amantes de chocolate." onComprar={() => adicionarAoCarrinho({ nome: "Pizza de Brigadeiro", preco: "R$45,00" })} />
-              <Produto nome="Pizza de Romeu e Julieta" preco="R$47,00" imagem="/assets/pizza_romeuejulieta.png" descricao="Combinação perfeita de goiabada cremosa e queijo derretido, uma tradição brasileira que mistura doce e salgado na medida certa." onComprar={() => adicionarAoCarrinho({ nome: "Pizza de Romeu e Julieta", preco: "R$47,00" })} />
-              <Produto nome="Pizza de doce de leite" preco="R$46,00" imagem="/assets/pizzadocedeleite.png" descricao="Massa leve com cobertura generosa de doce de leite cremoso, trazendo aquele sabor clássico e reconfortante." onComprar={() => adicionarAoCarrinho({ nome: "Pizza de Doce de Leite", preco: "R$46,00" })} />
-              <Produto nome="Pizza de chocolate com morango" preco="R$50,00" imagem="/assets/pizzachoco_morango.png" descricao=" Camada de chocolate ao leite acompanhada de morangos fresquinhos, uma mistura que une sabor e frescor em cada pedaço." onComprar={() => adicionarAoCarrinho({ nome: "Pizza de Chocolate com morango", preco: "R$50,00" })} />
-              <Produto nome="Pizza de Bis" preco="R$52,00" imagem="/assets/pizza_bis.png" descricao="Massa coberta com creme de chocolate, pedaços crocantes de Bis e uma pitada de chocolate derretido, para quem ama textura e sabor intensos." onComprar={() => adicionarAoCarrinho({ nome: "Pizza de Bis", preco: "R$52,00" })} />
+              <Produto
+                nome="Pizza de Prestígio"
+                preco="R$48,00"
+                imagem="/assets/pizzaprestigiooficial.png"
+                descricao="Massa macia coberta com creme de chocolate ao leite e generosa camada de coco ralado, uma combinação clássica que conquista paladares."
+                onComprar={() =>
+                  adicionarAoCarrinho({ nome: "Pizza de Prestígio", preco: "R$48,00" })
+                }
+              />
+              <Produto
+                nome="Pizza de Brigadeiro"
+                preco="R$45,00"
+                imagem="/assets/pizzabrigadeiro.png"
+                descricao="Deliciosa massa recheada com brigadeiro cremoso e finalizada com granulados de chocolate, um doce irresistível para os amantes de chocolate."
+                onComprar={() =>
+                  adicionarAoCarrinho({ nome: "Pizza de Brigadeiro", preco: "R$45,00" })
+                }
+              />
+              <Produto
+                nome="Pizza de Romeu e Julieta"
+                preco="R$47,00"
+                imagem="/assets/pizza_romeuejulieta.png"
+                descricao="Combinação perfeita de goiabada cremosa e queijo derretido, uma tradição brasileira que mistura doce e salgado na medida certa."
+                onComprar={() =>
+                  adicionarAoCarrinho({ nome: "Pizza de Romeu e Julieta", preco: "R$47,00" })
+                }
+              />
+              <Produto
+                nome="Pizza de doce de leite"
+                preco="R$46,00"
+                imagem="/assets/pizzadocedeleite.png"
+                descricao="Massa leve com cobertura generosa de doce de leite cremoso, trazendo aquele sabor clássico e reconfortante."
+                onComprar={() =>
+                  adicionarAoCarrinho({ nome: "Pizza de Doce de Leite", preco: "R$46,00" })
+                }
+              />
+              <Produto
+                nome="Pizza de chocolate com morango"
+                preco="R$50,00"
+                imagem="/assets/pizzachoco_morango.png"
+                descricao=" Camada de chocolate ao leite acompanhada de morangos fresquinhos, uma mistura que une sabor e frescor em cada pedaço."
+                onComprar={() =>
+                  adicionarAoCarrinho({ nome: "Pizza de Chocolate com morango", preco: "R$50,00" })
+                }
+              />
+              <Produto
+                nome="Pizza de Bis"
+                preco="R$52,00"
+                imagem="/assets/pizza_bis.png"
+                descricao="Massa coberta com creme de chocolate, pedaços crocantes de Bis e uma pitada de chocolate derretido, para quem ama textura e sabor intensos."
+                onComprar={() =>
+                  adicionarAoCarrinho({ nome: "Pizza de Bis", preco: "R$52,00" })
+                }
+              />
             </>
           )}
 
           {mostrarBebidas && (
             <>
-              <Produto nome="Lata de Coca-Cola 350ml" preco="R$6,00" imagem="/assets/coca.png" onComprar={() => adicionarAoCarrinho({ nome: "Lata de Coca-Cola 350ml", preco: "R$6,00" })} />
-              <Produto nome="Fanta Laranja de 2 litros" preco="R$12,00" imagem="/assets/fanta2l.png" onComprar={() => adicionarAoCarrinho({ nome: "Fanta Laranja", preco: "R$12,00" })} />
-              <Produto nome="Guaraná Antartida 350ml" preco="R$5,50" imagem="/assets/guarana.png" onComprar={() => adicionarAoCarrinho({ nome: "Guaraná Antartida 350ml", preco: "R$5,50" })} />
-              <Produto nome="Guaraná Antartida 2 litros" preco="R$12,00" imagem="/assets/guarana2litros.png" onComprar={() => adicionarAoCarrinho({ nome: "Guaraná Antartida 2 litros", preco: "R$12,00" })} />
-              <Produto nome="Pepsi 2 litros" preco="R$11,50" imagem="/assets/pepsi2l.png" onComprar={() => adicionarAoCarrinho({ nome: "Pepsi 2 litros", preco: "R$11,50" })} />
-              <Produto nome="Suco Del Valle laranja 1 litro" preco="R$10,00" imagem="/assets/suco_laranja.png" onComprar={() => adicionarAoCarrinho({ nome: "Suco Del Valle laranja 1 litro", preco: "R$10,00" })} />
-              <Produto nome="Suco Del Valle uva 1 litro" preco="R$10,00" imagem="/assets/suco_uva.png" onComprar={() => adicionarAoCarrinho({ nome: "Suco Del Valle uva 1 litro", preco: "R$10,00" })} />
-              <Produto nome="Água 500 ml" preco="R$4,00" imagem="/assets/agua.png" onComprar={() => adicionarAoCarrinho({ nome: "Água 500 ml", preco: "R$4,00" })} />              
-              <Produto nome="Energético Monster" preco="R$15,00" imagem="/assets/monster.png" onComprar={() => adicionarAoCarrinho({ nome: "Energético Monster", preco: "R$15,00" })} />
+    <Produto
+      nome="Lata de Coca-Cola 350ml"
+      preco="R$6,00"
+      imagem="/assets/coca.png"
+      onComprar={() =>
+        adicionarAoCarrinho({ nome: "Lata de Coca-Cola 350ml", preco: "R$6,00" })
+      }
+    />
+    <Produto
+      nome="Pepsi Cola de 2 litros"
+      preco="R$12,00"
+      imagem="/assets/pepsi2l.png"
+      onComprar={() =>
+        adicionarAoCarrinho({ nome: "Pepsi Cola de 2 litros", preco: "R$12,00" })
+      }
+    />
+    <Produto
+      nome="Água Mineral 500ml"
+      preco="R$4,00"
+      imagem="/assets/agua.png"
+      onComprar={() =>
+        adicionarAoCarrinho({ nome: "Água Mineral 500ml", preco: "R$4,00" })
+      }
+    />
+    <Produto
+      nome="Guaraná Antartida de 2 litros"
+      preco="R$12,00" 
+      imagem="/assets/guarana2litros.png"
+      onComprar={() =>
+        adicionarAoCarrinho({ nome: "Guaraná Antartida de 2 litros", preco: "R$12,00" })
+      }
+    />
+    <Produto
+      nome="Fanta Laranja de 2 litros"
+      preco="R$11,00" 
+      imagem="/assets/fanta2l.png"
+      onComprar={() =>
+        adicionarAoCarrinho({ nome: "Fanta Laranja de 2 litros", preco: "R$11,00" })
+      }
+    />
+    <Produto
+      nome="Suco Del Valle sabor uva"
+      preco="R$14,00"  
+      imagem="/assets/suco_uva.png"
+      onComprar={() =>
+        adicionarAoCarrinho({ nome: "Suco Del Valle sabor uva", preco: "R$14,00" })
+      }
+    />
             </>
           )}
         </div>

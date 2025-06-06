@@ -1,353 +1,327 @@
-/* ============================
-   Seção Geral
-============================ */
-section {
-  background-color: #f1e2bb;
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ============================
-   Container de Produtos
-============================ */
 .produtos-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px;
-  background-color: #f9f9f9;
+  padding: 40px 20px 100px;
+  text-align: center;
+  position: relative;
+  background: #f7f7f7;
+  min-height: 100vh;
 }
 
-/* ============================
-   Cabeçalho da Seção de Produtos
-============================ */
-.product-section h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2.5rem;
+h1#linkpdt {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
 }
 
 .product-section p {
-  text-align: center;
-  font-size: 1.2rem;
-  margin-bottom: 40px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  max-width: 650px;
+  margin: 0 auto 30px auto;
+  line-height: 1.3;
+  color: #555;
 }
 
-/* ============================
-   Botões de Categorias
-============================ */
 .botoes-categorias {
   display: flex;
-  gap: 15px;
-  margin: 20px 0;
-  flex-wrap: wrap;
   justify-content: center;
+  gap: 25px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
 }
 
 .botoes-categorias button {
-  padding: 10px 20px;
-  background-color: red;
-  color: white;
-  border-radius: 50px;
-  font-weight: bold;
+  background-color: #f45054;
+  border: none;
+  border-radius: 80px;
+  padding: 15px 25px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 50%;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  transition: background-color 0.25s ease-in-out;
+  box-shadow: 0 5px 8px rgba(255, 70, 78, 0.3);
+  width: 60%;
 }
 
 .botoes-categorias button:hover {
-  background-color: green;
+  background-color: #dd3e44;
 }
 
-/* ============================
-   Grid de Produtos
-============================ */
 .produtos-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 30px;
-  justify-items: center;
-  margin-top: 20px;
-  text-align: center;
+  padding: 0 10px;
 }
 
-@media (max-width: 768px) {
-  .produtos-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .produtos-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ============================
-   Cartão de Produto
-============================ */
 .produto {
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 30px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px;
   max-width: 360px;
-  transition: box-shadow 0.3s ease;
-}
-
-.produto:hover {
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.produto img {
-  width: 220px;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+  text-align: center;
   transition: transform 0.3s ease;
 }
 
-.produto img:hover {
-  transform: scale(1.05);
+.produto:hover {
+  transform: translateY(-7px);
 }
 
-/* ============================
-   Descrição e Preço
-============================ */
+.produto img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
 .descricao-e-preco {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  /* Garante o espaçamento entre descrição e preço */
   gap: 10px;
-  flex-grow: 1;
   padding: 10px;
+  width: 100%;
+  align-items: center;
+  min-height: 160px;
+  /* ajuste este valor conforme o espaço necessário */
 }
 
 .descricao-e-preco h2 {
-  margin: 0;
   font-size: 1.5rem;
-  font-weight: bold;
-  text-align: center;
+  font-weight: 700;
+  margin: 0;
+  color: #444;
 }
 
 .descricao-e-preco p {
   margin: 0;
+  text-align: justify;
   font-size: 1rem;
   color: #666;
-  text-align: justify;
-  width: 90%;
 }
 
 .preco {
-  text-align: center;
+  font-size: 50px; 
   font-weight: bold;
-  font-size: 1.2em;
-  margin-top: 10px;
-  color: #2a9d8f;
+  margin-top: auto;
 }
 
-/* ============================
-   Botão Comprar
-============================ */
+.preco p {
+  color: #9ACD32;
+}
+
 .btn-comprar {
-  background-color: #e63946;
+  margin-top: 20px;
+  background-color: #f45054;
   color: white;
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: 600;
   border: none;
-  border-radius: 8px;
+  border-radius: 7px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 15px;
+  padding: 12px 25px;
+  font-weight: 600;
   width: 100%;
   max-width: 200px;
+  transition: background-color 0.3s ease;
+  align-self: center;
 }
 
 .btn-comprar:hover {
-  background-color: #d62828;
+  background-color: body;
+  font-family: "Arial", sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ============================
-   Seção Produtos (Texto Geral)
-============================ */
-.produtos {
-  text-align: center;
-  padding: 20px;
-  background-color: #7ed957;
-}
-
-.produtos h1 {
-  font-size: 36px;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.produtos p {
-  font-size: 16px;
-  color: #666;
-  max-width: 800px;
-  margin: 10 auto 20px;
-  text-align: justify;
-}
-
-/* ============================
-   Seção de Carros Antigos
-============================ */
-.carros-antigos {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-  max-width: 800px;
+.produtos-container {
+  max-width: 1200px;
   margin: 0 auto;
-}
-
-.carro {
-  border-radius: 8px;
+  padding: 40px 20px 100px;
   text-align: center;
-  padding: 15px;
+  position: relative;
+  background: #f7f7f7;
+  min-height: 100vh;
 }
 
-.carro img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.carro span {
-  display: block;
-  font-size: 18px;
+h1#linkpdt {
+  font-size: 3rem;
+  margin-bottom: 15px;
   font-weight: bold;
-  margin-top: 10px;
   color: #333;
 }
 
+.product-section p {
+  font-size: 1.25rem;
+  font-weight: 600;
+  max-width: 650px;
+  margin: 0 auto 30px auto;
+  line-height: 1.3;
+  color: #555;
+}
 
-  /* ============================
-   Painel do Carrinho (Lateral)
-============================ */
-  .carrinho-topo {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-    background: #eee;
-    padding: 10px 15px;
-    border-radius: 5px;
-    z-index: 1000;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Roboto', sans-serif;
-    transition: background-color 0.3s ease;
-  }
+.botoes-categorias {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
 
-  .carrinho-topo:hover {
-    background-color: #ddd;
-  }
+.botoes-categorias button {
+  background-color: #f45054;
+  border: none;
+  border-radius: 8px;
+  padding: 15px 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  transition: background-color 0.25s ease-in-out;
+  box-shadow: 0 5px 8px rgba(255, 70, 78, 0.3);
+}
 
-  .carrinho-topo .material-icons {
-    font-size: 24px;
-    color: #333;
-  }
+.botoes-categorias button:hover {
+  background-color: #dd3e44;
+}
 
-  /* Painel do carrinho */
-  .painel-carrinho {
-    position: fixed;
-    top: 60px;
-    right: 20px;
-    width: 320px;
-    max-height: 70vh;
-    overflow-y: auto;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 999;
-    font-family: 'Roboto', sans-serif;
-  }
+.produtos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 0 10px;
+}
 
-  .painel-carrinho h3 {
-    margin-top: 0;
-    font-size: 20px;
-    color: #222;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
-    margin-bottom: 15px;
-  }
+.produto {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 360px;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
 
-  .painel-carrinho ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 15px 0;
-  }
+.produto:hover {
+  transform: translateY(-7px);
+}
 
-  .painel-carrinho ul li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
-    font-size: 16px;
-    color: #444;
-  }
+.produto img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
 
-  .painel-carrinho ul li button {
-    background: #e74c3c;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+.descricao-e-preco {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px;
+  width: 100%;
+  align-items: center;
+  min-height: 160px;
+}
 
-  .painel-carrinho ul li button:hover {
-    background: #c0392b;
-  }
+.descricao-e-preco h2 {
+  font-size: 1.2rem; /* Reduzido */
+  font-weight: 700;
+  margin: 0;
+  color: #444;
+}
 
-  .painel-carrinho>button {
-    width: 100%;
-    background: #27ae60;
-    color: white;
-    padding: 12px;
-    font-size: 16px;
-    font-weight: 700;
-    border: none;
-    border-radius: 5px;
-  }
+.descricao-e-preco .preco p {
+  margin: 0;
+  text-align: justify;
+  font-size: 1rem;
+  color: green;
+}
 
-  .painel-carrinho>button:hover {
-    background: #219150;
-  }
+.preco {
+  font-size: 60px; /* Aumentado */
+  font-weight: bold;
+  margin-top: auto;
+}
 
-  /* ============================
-   Animações de Entrada e Saída
-============================ */
-  .fade-slide-enter {
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
+.preco p {
+  color: #9ACD32;
+}
 
-  .fade-slide-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.btn-comprar {
+  margin-top: 20px;
+  background-color: #f45054;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  padding: 12px 25px;
+  font-weight: 600;
+  width: 100%;
+  max-width: 200px;
+  transition: background-color 0.3s ease;
+  align-self: center;
+}
 
-  .fade-slide-exit {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-  }
+.btn-comprar:hover {
+  background-color: #32CD32;
+}
 
-  .fade-slide-exit-active {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
+/* Scrollbars for the cart panel */
+.painel-carrinho::-webkit-scrollbar {
+  width: 8px;
+}
+
+.painel-carrinho::-webkit-scrollbar-thumb {
+  background-color: #f45054;
+  border-radius: 4px;
+}
+
+.carrinho-topo {
+  user-select: none;
+}
+
+
+
+/* Scrollbars for the cart panel */
+.painel-carrinho::-webkit-scrollbar {
+  width: 8px;
+}
+
+.painel-carrinho::-webkit-scrollbar-thumb {
+  background-color: #f45054;
+  border-radius: 4px;
+}
+
+.carrinho-topo {
+  user-select: none;
+}

@@ -12,6 +12,7 @@ import Logar from "./components/entrar";
 import ScrollToTopButton from './components/TopButton/ScrollToTopButton';
 import Account from "./components/principal/p";
 import FinalizarPedido from "./components/Finalizar/finalizar"; // ajuste o caminho conforme sua pasta
+import Admin from "./components/Admin"; // nova página admin (você cria essa página)
 
 
 function ScrollToHashElement() {
@@ -50,7 +51,7 @@ function App() {
               </>
             }
           />
-          
+          <Route path="/" element={<Admin />} />
           <Route path="/createcheck" element={<Create />} />
           <Route path="/entrar" element={<Logar />} />
           <Route path="/Comprar" element={<Comprar />} />

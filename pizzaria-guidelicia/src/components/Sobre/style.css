@@ -86,3 +86,14 @@
         margin: 10px 0;
     }
 }
+
+.maps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.maps img {
+    width: 50vh;
+    height: 30vh;
+}

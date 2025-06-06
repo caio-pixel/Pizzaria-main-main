@@ -30,7 +30,7 @@ model Pedido {
 model Produto {
   id        Int     @id @default(autoincrement())
   nome      String
+  descricao String
   preco     Float
   imagem    String
-  descricao String
 }

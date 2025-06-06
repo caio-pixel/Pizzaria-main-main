@@ -27,10 +27,14 @@ const Sobre = () => {
 
                 <div className="sobre-contato">
                     <h4 id='linkct'>Fale Conosco</h4>
-                    <p>Email: contato@guidelicia.com</p>
+                    <p>Email: contatoguidelicia@gmail.com</p>
                     <p>Telefone: (12) 3456-7890</p>
-                    <p>Endereço: Rua das Pizzas, 123 - São Paulo, SP, Brasil</p>
+                    <p>Endereço: Rua das Pizzas, 123 - Caraguatatuba, SP, Brasil</p>
                 </div>
+            </div>
+
+            <div className="maps">
+                <img src="/assets/mapspizzaria.png" alt="maps" />
             </div>
 
             <div className="footer-bottom">
