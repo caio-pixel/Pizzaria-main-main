@@ -1,11 +1,11 @@
 require('dotenv').config({ path: '.env.backend' });
 const express = require('express');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const PORT = process.env.PORT || 3002;
-app.use(cors());
-app.use(express.json());
+const SECRET = "segredo_supersecreto";
 
 // Middlewares globais
 app.use(cors({
@@ -15,35 +15,14 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Rotas
-const SECRET = "segredo_supersecreto";
+// Rotas importadas
 const usersRoutes = require('./src/routes/users');
 const authenticationRouter = require('./src/routes/authentication');
 const produtosRouter = require("./src/routes/produtos");
-const routes = require('./src/routes/routes');
 const pedidosRoutes = require("./src/routes/pedidos");
+const routes = require('./src/routes/routes');
 
-app.use(express.json());
-app.use("/produtos", require("./src/routes/produtos"));
-app.use('/api/users', usersRoutes);
-app.use('/api/authentication', authenticationRouter);
-app.use('/api/produtos', produtosRouter);
-app.use('/api/pedidos', pedidosRoutes); // ← Agora com JSON funcionando
-app.use('/api', routes);
-
-// Rota de teste
-app.get('/', (req, res) => {
-  res.send('Servidor funcionando!');
-});
-
-// Verificação de variável de ambiente
-console.log('JWT_SECRET:', process.env.JWT_SECRET); // Deve mostrar: suachavesecreta123
-
-// Iniciar o servidor
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
-
+// Middleware de autenticação
 function autenticarJWT(req, res, next) {
   const authHeader = req.headers.authorization;
 
@@ -63,12 +42,23 @@ function autenticarJWT(req, res, next) {
   }
 }
 
-// Usuários fixos só para exemplo (você pode usar banco)
+// Rotas
+app.use('/api/users', usersRoutes);
+app.use('/api/authentication', authenticationRouter);
+app.use('/api/produtos', autenticarJWT, produtosRouter);
+app.use('/api/pedidos', pedidosRoutes);
+app.use('/api', routes);
+
+// Rota de teste
+app.get('/', (req, res) => {
+  res.send('Servidor funcionando!');
+});
+
+// Login de exemplo (sem banco de dados)
 const usuarios = [
   { id: 1, email: "admin@exemplo.com", senha: "1234" },
 ];
 
-// Login - rota pública
 app.post("/api/authentication/login", (req, res) => {
   const { email, senha } = req.body;
 
@@ -82,14 +72,12 @@ app.post("/api/authentication/login", (req, res) => {
   }
 });
 
-// Produtos - exemplo simples armazenados em memória
-let produtos = [
-  { id: 1, nome: "Pizza Salgada", preco: "R$ 7,00", descricao: "Pizza sabor salgado", imagem: "urlimagem" },
-];
+// Verificação de variável de ambiente
+console.log('JWT_SECRET:', process.env.JWT_SECRET);
 
-// Rotas de produtos
-const produtosRouter = require("./routes/produtos");
-app.use("/api/produtos", autenticarJWT, produtosRouter);
-
+// Iniciar o servidor
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
 
 module.exports = app;

@@ -1,37 +1,40 @@
 /* Container principal */
 .account-container {
   position: relative;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 /* Container para o header e botão */
 .account-header-container {
-  position: relative; /* Para permitir o posicionamento do botão sobre o header */
+  position: relative;
 }
 
 /* Estilo do header */
 .account-header {
-  width: 100%;
-  background-color: #d4ff89; /* Verde-claro */
-  padding: 50px;
+  height: 80vh;
+  width: 80vw;
+  background-color: #000000ed;
+  padding: 40px 20px;
   text-align: left;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
-  color: black;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
   border-radius: 20px;
+  display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
-.account-header img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
+/* Botão dentro do header */
 .account-header button {
   margin-top: 20px;
   padding: 10px 20px;
+  font-size: 16px;
 }
 
 /* Botão de mostrar ações */
@@ -39,22 +42,21 @@
   background-color: transparent;
   border: 2px solid #007bff;
   color: #007bff;
-  font-size: 30px;
+  font-size: 26px;
   font-weight: bold;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  position: absolute; /* Fixa o botão sobre o header */
-  top: 20px;
-  right: 20px;
+  position: absolute;
+  top: 15px;
+  right: 12%;
   transition: transform 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Efeito de hover para o botão */
 .show-actions-btn:hover {
   transform: scale(1.2);
   color: #fff;
@@ -66,13 +68,14 @@
 .action-buttons-container {
   display: none;
   position: absolute;
-  top: 80px;
-  right: 20px;
-  width: 200px;
+  top: 70px;
+  right: 15px;
+  width: 180px;
   background-color: #e0e0e0;
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 100;
 }
 
 .action-buttons-container.show {
@@ -81,7 +84,7 @@
 
 .action-buttons-container h3 {
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   color: black;
   margin-bottom: 10px;
 }
@@ -110,3 +113,92 @@
 .action-buttons-container button:hover {
   opacity: 0.9;
 }
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .account-header {
+    font-size: 18px;
+    padding: 30px 15px;
+  }
+
+  .show-actions-btn {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+  }
+
+  .action-buttons-container {
+    top: 60px;
+    right: 10px;
+    width: 160px;
+    padding: 10px;
+  }
+
+  .action-buttons-container h3 {
+    font-size: 14px;
+  }
+
+  .action-buttons-container button {
+    font-size: 13px;
+    padding: 8px;
+  }
+}
+
+.topImage h2{
+  text-align: center;
+}
+
+.toggle-button {
+  width: 10vw;
+  font-weight: bold;
+}
+
+  .balance-amount {
+    font-size: 80%;
+    color: #32cd32;
+    margin-top: 10px;
+  }
+
+  .pix-info h3 {
+    margin-top: 50px;
+  }
+
+  .pix-info p {
+    font-size: 80%;
+    margin-top: 10px;
+  }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+  
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+  
+    .modal-actions {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+  .action-buttons-container {
+    margin-right: 15%;
+  }

@@ -17,6 +17,7 @@ const Account = () => {
   const [newNome, setNewNome] = useState("");
   const [newSenha, setNewSenha] = useState("");
   const [showActions, setShowActions] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
@@ -81,6 +82,8 @@ const Account = () => {
       navigate("/");
     } catch (error) {
       alert("Erro ao deletar conta: " + error.message);
+    } finally {
+      setShowDeleteConfirm(false);
     }
   };
 
@@ -115,7 +118,11 @@ const Account = () => {
     const token = localStorage.getItem("token");
     const ultimoPedido = pedidos[0];
 
-    if (!ultimoPedido || !ultimoPedido.itens || ultimoPedido.itens.length === 0) {
+    if (
+      !ultimoPedido ||
+      !ultimoPedido.itens ||
+      ultimoPedido.itens.length === 0
+    ) {
       alert("Nenhum pedido anterior para repetir.");
       return;
     }
@@ -167,8 +174,11 @@ const Account = () => {
     <main className="account-container">
       <div className="account-header">
         <div className="topImage">
-          <h2>Área do Cliente - Bem-vindo(a), {nome}!</h2>
-          <button className="show-actions-btn" onClick={toggleActions}>≡</button>
+          <h2>Área do Cliente</h2>
+          <p>Bem-vindo(a), {nome}!</p>
+          <button className="show-actions-btn" onClick={toggleActions}>
+            ≡
+          </button>
         </div>
 
         {error ? (
@@ -176,12 +186,12 @@ const Account = () => {
         ) : (
           <div className="account-info">
             <div className="account-balance">
-              <h3>Seus Pontos de Fidelidade:</h3>
+              <h5>Seus pontos de fidelidade:</h5>
               <p className="balance-amount">{pontos} pontos</p>
               <button className="toggle-button">Usar Pontos</button>
             </div>
             <div className="pix-info">
-              <h3>Último Pedido:</h3>
+              <h3>Último pedido:</h3>
               <p>
                 {pedidos[0]?.data} -{" "}
                 {Array.isArray(pedidos[0]?.itens)
@@ -196,13 +206,37 @@ const Account = () => {
       <div className={`action-buttons-container ${showActions ? "show" : ""}`}>
         <h3>Menu Rápido</h3>
         <div className="action-buttons">
-          <button className="action-button" onClick={() => navigate("/cardapio")}>Ver Cardápio</button>
-          <button className="action-button" onClick={() => navigate("/cardapio")}>Pedir Agora</button>
-          <button className="action-button" onClick={handleRepetirPedido}>Repetir Último Pedido</button>
-          <button className="action-button" onClick={scrollToHistorico}>Histórico de Pedidos</button>
+          <button
+            className="action-button"
+            onClick={() => navigate("/cardapio")}
+          >
+            Ver Cardápio
+          </button>
+          <button
+            className="action-button"
+            onClick={() => navigate("/cardapio")}
+          >
+            Pedir Agora
+          </button>
+          <button className="action-button" onClick={handleRepetirPedido}>
+            Repetir Último Pedido
+          </button>
+          <button className="action-button" onClick={scrollToHistorico}>
+            Histórico de Pedidos
+          </button>
         </div>
-        <button onClick={handleDeleteAccount} className="delete-account-button">Deletar Conta</button>
-        <button onClick={() => setShowEditModal(true)} className="edit-account-button">Editar Informações</button>
+        <button
+          onClick={() => setShowDeleteConfirm(true)}
+          className="delete-account-button"
+        >
+          Deletar Conta
+        </button>
+        <button
+          onClick={() => setShowEditModal(true)}
+          className="edit-account-button"
+        >
+          Editar Informações
+        </button>
       </div>
 
       {pedidos.length > 0 && (
@@ -227,15 +261,43 @@ const Account = () => {
             <h3>Editar Informações</h3>
             <label>
               Novo Nome:
-              <input type="text" value={newNome} onChange={(e) => setNewNome(e.target.value)} />
+              <input
+                type="text"
+                value={newNome}
+                onChange={(e) => setNewNome(e.target.value)}
+              />
             </label>
             <label>
               Nova Senha:
-              <input type="password" value={newSenha} onChange={(e) => setNewSenha(e.target.value)} />
+              <input
+                type="password"
+                value={newSenha}
+                onChange={(e) => setNewSenha(e.target.value)}
+              />
             </label>
             <div className="modal-actions">
               <button onClick={handleEditAccount}>Salvar</button>
               <button onClick={() => setShowEditModal(false)}>Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showDeleteConfirm && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>Tem certeza que deseja deletar sua conta?</h3>
+            <p>Essa ação é irreversível. Todos os seus dados serão apagados.</p>
+            <div className="modal-actions">
+              <button
+                style={{ backgroundColor: "red", color: "white" }}
+                onClick={handleDeleteAccount}
+              >
+                Sim, deletar
+              </button>
+              <button onClick={() => setShowDeleteConfirm(false)}>
+                Cancelar
+              </button>
             </div>
           </div>
         </div>

@@ -12,12 +12,18 @@ const FinalizarPedido = () => {
   const [mostrarModalCancelamento, setMostrarModalCancelamento] = useState(false);
   const [precisaTroco, setPrecisaTroco] = useState(false);
   const [valorTroco, setValorTroco] = useState("");
+  const [endereco, setEndereco] = useState("");
 
   const taxaEntrega = 10.0;
 
   const confirmarCompra = () => {
     if (!tipoRecebimento) {
       alert("Por favor, selecione o tipo de recebimento.");
+      return;
+    }
+
+    if (tipoRecebimento === "Entrega" && endereco.trim() === "") {
+      alert("Por favor, informe o endereço para entrega.");
       return;
     }
 
@@ -36,6 +42,7 @@ const FinalizarPedido = () => {
 
   const finalizar = () => {
     setMostrarModal(false);
+    alert("Obrigado pela sua preferência!");
 
     const pedidosSalvos = JSON.parse(localStorage.getItem("historicoPedidos")) || [];
 
@@ -45,6 +52,7 @@ const FinalizarPedido = () => {
       carrinho,
       formaPagamento,
       tipoRecebimento,
+      endereco: tipoRecebimento === "Entrega" ? endereco : "Retirada no local",
       total: totalFinal,
       trocoPara: formaPagamento === "Dinheiro" && precisaTroco ? valorTroco : "Não precisa",
     };
@@ -68,17 +76,17 @@ const FinalizarPedido = () => {
   };
 
   const handleFormaPagamentoChange = (e) => {
-    const selectedPaymentMethod = e.target.value;
-    setFormaPagamento(selectedPaymentMethod);
-    if (selectedPaymentMethod !== "Dinheiro") {
+    const selected = e.target.value;
+    setFormaPagamento(selected);
+    if (selected !== "Dinheiro") {
       setPrecisaTroco(false);
       setValorTroco("");
     }
   };
 
   const totalProdutos = carrinho.reduce((acc, item) => {
-    const precoNum = parseFloat(item.preco.replace("R$", "").replace(",", "."));
-    return acc + (isNaN(precoNum) ? 0 : precoNum);
+    const preco = parseFloat(item.preco.replace("R$", "").replace(",", "."));
+    return acc + (isNaN(preco) ? 0 : preco);
   }, 0);
 
   const totalFinal = tipoRecebimento === "Entrega" ? totalProdutos + taxaEntrega : totalProdutos;
@@ -119,12 +127,19 @@ const FinalizarPedido = () => {
               onChange={(e) => setTipoRecebimento(e.target.value)}
               style={styles.select}
             >
-      
+              <option value="">Selecione</option>
               <option value="Retirada">Retirada no Local</option>
-              <option value="Entrega">
-                Entrega (+{formatarBRL(taxaEntrega)})
-              </option>
+              <option value="Entrega">Entrega (+{formatarBRL(taxaEntrega)})</option>
             </select>
+            {tipoRecebimento === "Entrega" && (
+              <input
+                type="text"
+                placeholder="Digite o endereço para entrega"
+                value={endereco}
+                onChange={(e) => setEndereco(e.target.value)}
+                style={{ ...styles.input, marginTop: 10 }}
+              />
+            )}
           </div>
 
           <div style={styles.section}>
@@ -134,17 +149,24 @@ const FinalizarPedido = () => {
               onChange={handleFormaPagamentoChange}
               style={styles.select}
             >
-              
+              <option value="">Selecione</option>
               <option value="Pix">Pix</option>
               <option value="Dinheiro">Dinheiro</option>
               <option value="Cartão">Cartão de Crédito/Débito</option>
             </select>
 
+            {formaPagamento === "Pix" && (
+              <div style={styles.pixInfo}>
+                <strong>Chave Pix para pagamento:</strong>
+                <p style={styles.pixChave}>contatoguidelicia@gmail.com</p>
+              </div>
+            )}
+
             {formaPagamento === "Dinheiro" && (
               <div style={styles.changeQuestion}>
                 <p>Precisa de troco?</p>
-                <div style={styles.radioGroup}> {/* Apply flexbox here */}
-                  <label style={styles.radioLabel}> {/* Individual label styling */}
+                <div style={styles.radioGroup}>
+                  <label style={styles.radioLabel}>
                     <input
                       type="radio"
                       name="precisaTroco"
@@ -158,7 +180,7 @@ const FinalizarPedido = () => {
                     />{" "}
                     Sim
                   </label>
-                  <label style={styles.radioLabel}> {/* Individual label styling */}
+                  <label style={styles.radioLabel}>
                     <input
                       type="radio"
                       name="precisaTroco"
@@ -177,6 +199,7 @@ const FinalizarPedido = () => {
                     value={valorTroco}
                     onChange={(e) => setValorTroco(e.target.value)}
                     style={styles.trocoInput}
+                    min={totalFinal}
                   />
                 )}
               </div>
@@ -201,7 +224,6 @@ const FinalizarPedido = () => {
         </>
       )}
 
-      {/* Modal de Confirmação */}
       {mostrarModal && (
         <div style={styles.modalOverlay}>
           <div style={styles.modalContent}>
@@ -212,6 +234,11 @@ const FinalizarPedido = () => {
             <p>
               Recebimento: <strong>{tipoRecebimento}</strong>
             </p>
+            {tipoRecebimento === "Entrega" && (
+              <p>
+                Endereço: <strong>{endereco}</strong>
+              </p>
+            )}
             {formaPagamento === "Dinheiro" && (
               <p>
                 Troco para:{" "}
@@ -230,7 +257,6 @@ const FinalizarPedido = () => {
         </div>
       )}
 
-      {/* Modal de Cancelamento */}
       {mostrarModalCancelamento && (
         <div style={styles.modalOverlay}>
           <div style={styles.modalContent}>
@@ -295,6 +321,13 @@ const styles = {
     borderBottom: "1px solid #ddd",
   },
   select: {
+    width: "100%",
+    padding: 10,
+    borderRadius: 5,
+    border: "1px solid #ccc",
+    fontSize: 16,
+  },
+  input: {
     width: "100%",
     padding: 10,
     borderRadius: 5,
@@ -375,19 +408,19 @@ const styles = {
     backgroundColor: "#f2f2f2",
   },
   radioGroup: {
-    display: "flex", // Use flexbox for horizontal alignment
-    justifyContent: "center", // Center the radio buttons
-    gap: 20, // Add some space between "Sim" and "Não"
+    display: "flex",
+    justifyContent: "center",
+    gap: 20,
     marginTop: 10,
     marginBottom: 10,
   },
   radioLabel: {
-    display: "flex", // Make the label a flex container
-    alignItems: "center", // Vertically align the input and text
+    display: "flex",
+    alignItems: "center",
     cursor: "pointer",
   },
   radioInput: {
-    marginRight: 5, // Space between radio button and text
+    marginRight: 5,
   },
   trocoInput: {
     width: "calc(100% - 22px)",
@@ -396,6 +429,18 @@ const styles = {
     borderRadius: 5,
     border: "1px solid #ccc",
     fontSize: 16,
+  },
+  pixInfo: {
+    marginTop: 15,
+    padding: 10,
+    backgroundColor: "#e0f7fa",
+    borderRadius: 5,
+    textAlign: "center",
+  },
+  pixChave: {
+    marginTop: 5,
+    fontSize: 18,
+    color: "#00796b",
   },
 };
 
