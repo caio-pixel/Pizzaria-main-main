@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 import "./App.css";
 import Header from "./components/header";
 import SecaoCapa from "./components/SecaoCapa";
-import Produtos from "./components/Produtos";
 import Sobre from "./components/Sobre";
 import Comprar from "./components/Comprar";
 import Create from "./components/createcheck";
@@ -46,7 +45,6 @@ function App() {
             element={
               <>
                 <SecaoCapa />
-                <Produtos carrinho={carrinho} setCarrinho={setCarrinho} />
                 <Sobre />
               </>
             }

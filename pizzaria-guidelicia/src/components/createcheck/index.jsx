@@ -9,7 +9,6 @@ const Create = () => {
     email: "",
     senha: "",
     telefone: "",
-    endereco: "",
   });
 
   const navigate = useNavigate();
@@ -61,7 +60,6 @@ navigate("/entrar");
         email: "",
         senha: "",
         telefone: "",
-        endereco: "",
       });
     }
   };
@@ -87,16 +85,6 @@ navigate("/entrar");
             id="email"
             name="email"
             value={formData.email}
-            onChange={handleChange}
-            required
-          />
-
-          <label htmlFor="endereco">Endereço:</label>
-          <input
-            type="text"
-            id="endereco"
-            name="endereco"
-            value={formData.endereco}
             onChange={handleChange}
             required
           />

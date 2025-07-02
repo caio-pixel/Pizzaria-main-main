@@ -20,7 +20,7 @@ const Header = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/#linkpdt" className="red">Produtos</Link>
+              <Link to="/cardapio" className="red">Produtos</Link>
             </li>
             <li>
               <Link to="/#linksb" className="red">Sobre</Link>
