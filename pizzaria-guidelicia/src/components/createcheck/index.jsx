@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./create.css";
-import "./create.css";
 
 const Create = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +8,7 @@ const Create = () => {
     email: "",
     senha: "",
     telefone: "",
+    endereco: "", // ✅ Adicionado
   });
 
   const navigate = useNavigate();
@@ -45,12 +45,13 @@ const Create = () => {
       if (!response.ok) {
         throw new Error("Erro ao criar conta");
       }
+
       const data = await response.json();
-localStorage.setItem("nome", data.nome);
-localStorage.setItem("email", data.email);
-localStorage.setItem("token", data.token);
-console.log("Conta criada com sucesso");
-navigate("/entrar");
+      localStorage.setItem("nome", data.nome);
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("token", data.token);
+      console.log("Conta criada com sucesso");
+      navigate("/entrar");
 
     } catch (error) {
       console.error("Erro:", error);
@@ -60,6 +61,7 @@ navigate("/entrar");
         email: "",
         senha: "",
         telefone: "",
+        endereco: "", // ✅ Limpar no reset também
       });
     }
   };
@@ -109,11 +111,20 @@ navigate("/entrar");
             required
           />
 
+          <label htmlFor="endereco">Endereço:</label> {/* ✅ Campo novo */}
+          <input
+            type="text"
+            id="endereco"
+            name="endereco"
+            value={formData.endereco}
+            onChange={handleChange}
+            required
+          />
+
           <button type="submit">Criar</button>
         </form>
       </div>
     </main>
-    
   );
 };
 

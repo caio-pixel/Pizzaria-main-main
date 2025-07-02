@@ -149,7 +149,7 @@ const FinalizarPedido = () => {
               onChange={handleFormaPagamentoChange}
               style={styles.select}
             >
-              <option value="">Selecione</option>
+              <option value="Cartão">Selecione</option>
               <option value="Pix">Pix</option>
               <option value="Dinheiro">Dinheiro</option>
               <option value="Cartão">Cartão de Crédito/Débito</option>
